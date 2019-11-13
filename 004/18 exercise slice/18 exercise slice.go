@@ -1,6 +1,8 @@
 package main
 
-import "golang.org/x/tour/pic"
+import "pic"
+
+//import "golang.org/x/tour/pic"
 
 func Pic(dx, dy int) [][]uint8 {
 

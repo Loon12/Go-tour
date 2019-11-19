@@ -8,27 +8,24 @@ import (
 type ErrNegativeSqrt float64
 
 func (e ErrNegativeSqrt) Error() string {
-	return fmt.Sprintf("Sqrt: negative number %g", e)
+	return fmt.Sprintf("cannot Sqrt negative number: %g", e)
 }
 
-const delta = 1e-10
+const k = 0.0001 // precision
 
-func Sqrt(f float64) (float64, error) {
-	if f < 0 {
-		return 0, ErrNegativeSqrt(f)
-	}
-	z := f
-	for {
-		n := z - (z*z-f)/(2*z)
-		if math.Abs(n-z) < delta {
-			break
+func sqrt(x float64) (float64, error) {
+	if x < 0 {
+		return x, ErrNegativeSqrt(x)
+	} else {
+		z := 1.0
+		for math.Abs(math.Sqrt(x)-z) >= k {
+			z = z - ((z*z - x) / (2 * z))
 		}
-		z = n
+		return z, nil
 	}
-	return z, nil
 }
 
 func main() {
-	fmt.Println(Sqrt(2))
-	fmt.Println(Sqrt(-2))
+	fmt.Println(sqrt(2))
+	fmt.Println(sqrt(-2))
 }

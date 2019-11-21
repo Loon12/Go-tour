@@ -5,7 +5,7 @@ import (
 	"math"
 )
 
-const k = 0.0001 // precision
+const k = 0.000000001 // precision
 
 func sqrt(x float64) float64 {
 	var z float64 = 1.0

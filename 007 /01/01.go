@@ -3,5 +3,9 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Yes")
+	var s []int
+	for i := range s {
+		s[i]++
+	}
+	fmt.Println(s)
 }

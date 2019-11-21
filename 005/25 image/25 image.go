@@ -1,4 +1,4 @@
-package main
+/*package main
 
 import (
 	"image"
@@ -26,4 +26,4 @@ func (m Image) At(x, y int) color.Color {
 func main() {
 	m := Image{256, 256}
 	pic.ShowImage(m)
-}
+}*/

@@ -15,23 +15,19 @@ func main() {
 	printSlice(a)
 
 	//2 Добавить в конец слайса число 5
-	a = append(a, 5)
+	a = Plus5end(a)
 	printSlice(a)
 
 	//3 Добавить в начало слайса число 5
-	f := []int{5}
-	f = append(f, a...)
-	a = f
+	a=Plus5begin(a)
 	printSlice(a)
 
 	//4 Взять последнее число слайса, вернуть его пользователю, а из слайса этот элемент удалить
-	fmt.Println(a[len(a)-1])
-	a = a[:len(a)-1]
+	a=delEnd(a)
 	printSlice(a)
 
 	//5 Взять первое число слайса, вернуть его пользователю, а из слайса этот элемент удалить
-	fmt.Println(a[0])
-	a = a[1:]
+	a=delBegin(a)
 	printSlice(a)
 
 	//6 Взять i-е число слайса, вернуть его пользователю, а из слайса этот элемент удалить. Число i передает пользователь в функцию
@@ -44,9 +40,7 @@ func main() {
 		b[i] = rand.Intn(10)
 	}
 	printSlice(b)
-	c := []int{}
-	c = append(c, a...)
-	c = append(c, b...)
+	c:=love(a,b)
 	printSlice(c)
 
 	//8 Из первого слайса удалить все числа, которые есть во втором
@@ -101,6 +95,42 @@ func main() {
 //функция вывода слайса
 func printSlice(x []int) {
 	fmt.Printf("%v   len=%d cap=%d\n", x, len(x), cap(x))
+}
+
+//функция добавления числа 5 в конец слайса
+func Plus5end(x []int) []int {
+	x = append(x, 5)
+	return x
+} 
+
+//функция добавляет 5 в начало слайса
+func Plus5begin(x []int) []int{
+	f := []int{5}
+	f = append(f, x...)
+	x = f
+	return x
+}
+
+//функция возврата и удаления последнего элемента слайса
+func delEnd(a []int) []int{
+	fmt.Println(a[len(a)-1])
+	a = a[:len(a)-1]
+	return a
+}
+
+//функция возвората и удаления первого элемента слайса
+func delBegin(a []int) []int{
+	fmt.Println(a[0])
+	a = a[1:]
+	return a
+}
+
+//функция объединения слайсов
+func love(a []int, b []int) []int{
+	c := []int{}
+	c = append(c, a...)
+	c = append(c, b...)
+	return c
 }
 
 /*функция удаления i-го элемента

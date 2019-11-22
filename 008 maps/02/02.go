@@ -12,8 +12,14 @@ func main() {
 	for i := range a {
 		a[i] = rand.Intn(100)
 	}
-	//m := make(map[int]int)
-	//printSlice(a)
+	printSlice(a)
+	m := make(map[int]int)
+	for i:=range a {
+		if _,th:=m[a[i]];th==false{
+			m[a[i]]++
+			fmt.Printf("%v ",a[i])
+		}
+	}
 }
 func printSlice(x []int) {
 	fmt.Printf("%v   len=%d cap=%d\n", x, len(x), cap(x))

@@ -3,10 +3,11 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 func main() {
-
+	rand.Seed(time.Now().UnixNano())
 	a := make([]int, 10)
 	for i := range a {
 		a[i] = rand.Intn(10)
@@ -18,9 +19,9 @@ func main() {
 	printSlice(a)
 
 	//3 Добавить в начало слайса число 5
-	b := []int{5}
-	b = append(b, a...)
-	a = b
+	f := []int{5}
+	f = append(f, a...)
+	a = f
 	printSlice(a)
 
 	//4 Взять последнее число слайса, вернуть его пользователю, а из слайса этот элемент удалить
@@ -36,6 +37,22 @@ func main() {
 	//6 Взять i-е число слайса, вернуть его пользователю, а из слайса этот элемент удалить. Число i передает пользователь в функцию
 	a = del(2, a)
 	printSlice(a)
+
+	//7 Объединить два слайса и вернуть новый со всеми элементами первого и второго
+	b := make([]int, 10)
+	for i := range b {
+		b[i] = rand.Intn(10)
+	}
+	printSlice(b)
+	c := []int{}
+	c = append(c, a...)
+	c = append(c, b...)
+	printSlice(c)
+
+	//8 Из первого слайса удалить все числа, которые есть во втором
+	//a := delel(a, b) если надо из а удалить и зменить значения элементов слайса
+	g := delel(a, b)
+	printSlice(g)
 
 	//9 Сдвинуть все элементы слайса на 1 влево. Нулевой становится последним, первый - нулевым, последний - предпоследним.
 	a = moveLeft(a)
@@ -54,7 +71,7 @@ func main() {
 	printSlice(a)
 
 	//13 Вернуть пользователю копию переданного слайса
-	//теперь в tmp можно менять значения и a[]int не вопредится
+	//теперь в tmp можно менять значения и a[]int не повредится
 	tmp := make([]int, len(a))
 	copy(tmp, a)
 	printSlice(tmp)
@@ -71,7 +88,13 @@ func main() {
 	a = sorTBack(a)
 	printSlice(a)
 
-	//лексиграфическом
+	//лексикографическом
+	s := []string{"asdad", "gafgsaDF", "SDFGSFGSFG", "dfsdfad", "ddfssf", "QWQWQW"}
+	//знаю вот такой вариант
+	//sort.Strings(s)
+	//от обычной пузырьковой моя отличается только типом
+	s = sorABC(s)
+	fmt.Println(s)
 
 }
 
@@ -81,14 +104,14 @@ func printSlice(x []int) {
 }
 
 /*функция удаления i-го элемента
-я сделал удаленеие i-го элемента, где a[0] - это первый элемент среза и т.д.
-для удаления i-го элемента, где a[1] - это первый элемент необходимо
-b := y[x+1:]
-y = y[:x]*/
+я сделал удаленеие i-го элемента, где a[1] - это первый элемент среза и т.д.
+для удаления i-го элемента, где a[0] - это первый элемент необходимо
+k := y[x:]
+y = y[:x-1]*/
 func del(x int, y []int) []int {
-	b := y[x:]
-	y = y[:x-1]
-	y = append(y, b...)
+	k := y[x+1:]
+	y = y[:x]
+	y = append(y, k...)
 	return y
 }
 
@@ -171,4 +194,36 @@ func sorTBack(a []int) []int {
 		}
 	}
 	return a
+}
+
+//сортировка в лексикографическом порядке
+func sorABC(a []string) []string {
+	for i := 0; i < len(a); i++ {
+		for j := i; j < len(a); j++ {
+			if a[i] > a[j] {
+				c := a[i]
+				a[i] = a[j]
+				a[j] = c
+			}
+		}
+	}
+	return a
+}
+
+//удаление из первого слайса элементов, которые есть во втором
+func delel(a []int, b []int) []int {
+	s := []int{}
+	for i := range a {
+		l := 0
+		for j := range b {
+			if a[i] == b[j] {
+				l++
+			}
+		}
+		if l == 0 {
+			s = append(s, a[i])
+			l = 0
+		}
+	}
+	return s
 }

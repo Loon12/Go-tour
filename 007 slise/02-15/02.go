@@ -85,7 +85,7 @@ func main() {
 
 	//лексикографическом
 	s := []string{"asdad", "asdad", "gafgsaDF", "SDFGSFGSFG", "dfsdfad", "ddfssf", "QWQWQW", "1234", "12335"}
-	sorABC(&s)
+	sorABC(s)
 	fmt.Println(s)
 
 }
@@ -183,16 +183,16 @@ func sorTBack(a []int) {
 }
 
 //сортировка в лексикографическом порядке
-func sorABC(a *[]string) {
-	r := make([][]rune, len(*a))
-	for i := range *a {
-		r[i] = []rune((*a)[i])
+func sorABC(a []string) {
+	r := make([][]rune, len(a))
+	for i := range a {
+		r[i] = []rune(a[i])
 	}
-	for i := 0; i < len(*a); i++ {
-		for j := i + 1; j < len(*a); j++ {
+	for i := 0; i < len(a); i++ {
+		for j := i + 1; j < len(a); j++ {
 			if comparison(r[i], r[j]) == false {
 				r[i], r[j] = r[j], r[i]
-				(*a)[i], (*a)[j] = (*a)[j], (*a)[i]
+				a[i], a[j] = a[j], a[i]
 			}
 		}
 	}

@@ -45,8 +45,7 @@ func main() {
 	printSlice(a)
 
 	//8 Из первого слайса удалить все числа, которые есть во втором
-	//a := delel(a, b) если надо из а удалить и зменить значения элементов слайса
-	difference(&b, &a)
+	difference2(&b, &a)
 	printSlice(b)
 
 	//9 Сдвинуть все элементы слайса на 1 влево. Нулевой становится последним, первый - нулевым, последний - предпоследним.
@@ -233,8 +232,30 @@ func min(a []rune, b []rune) int {
 	}
 }
 
-//функция разности двух множеств
-func difference(a *[]int, b *[]int) {
+//функция разности двух множеств(O(len(a)+len(b)) сделал только при условии, что я сортирую мои слайсы. по-другому не придумал)
+func difference2(a1 *[]int, b1 *[]int) {
+	a := *a1
+	b := *b1
+	sort.Ints(a)
+	sort.Ints(b)
+	fmt.Println(a)
+	fmt.Println(b)
+	i, j := 0, 0
+	for (i < len(a)) && (j < len(b)) {
+		if a[i] == b[j] {
+			a = append(a[:i], a[i+1:]...)
+		} else {
+			if a[i] < b[j] {
+				i++
+			}
+			if a[i] > b[j] {
+				j++
+			}
+		}
+	}
+	(*a1) = a
+}
+/*func difference(a *[]int, b *[]int) {
 	for i := 0; i < len(*a); i++ {
 		for j := 0; j < len(*b); j++ {
 			if (*a)[i] == (*b)[j] {
@@ -248,4 +269,4 @@ func difference(a *[]int, b *[]int) {
 			}
 		}
 	}
-}
+}*/
